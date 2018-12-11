@@ -1,0 +1,4 @@
+﻿{
+    "connectionString": "mongodb://localhost/updated-symposium-backend",
+    "secret": "OrAcLe@Se_SyMpoSiUm_2018_JaIpUr!"
+}
