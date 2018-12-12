@@ -4,3 +4,6 @@ MERN Stack App for Social Back Ends
 * Likes 
 * Posts
 * Meet Now 
+
+# Triggered first 
+[![wercker status](https://app.wercker.com/status/fcba11713057b2459f240a81332f586d/s/master "wercker status")](https://app.wercker.com/project/byKey/fcba11713057b2459f240a81332f586d)
