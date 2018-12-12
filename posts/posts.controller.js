@@ -12,8 +12,7 @@ postRouter.get('/feed/:timestamp', getLatest);
 postRouter.get('/deleted/', getDeleted);
 postRouter.get('/:id', getById);
 postRouter.put('/:id', _delete);
-postRouter.post('/:id/likePost', likePost);
-postRouter.post('/:id/unlikePost', unlikePost);
+postRouter.post('/:id/toggleLike', toggleLike);
 
 
 module.exports = postRouter;
@@ -35,11 +34,10 @@ function getLatest(req, res, next) {
     const currentUser = req.user;
     postService.getLatest(req.params.timestamp, currentUser.sub)
         .then(posts => posts ? res.json(posts) : res.sendStatus(404))
-        .catch(err => next(err));
+        .catch(err => console.info(err));
 }
 
 function getDeleted(req, res, next) {
-    console.info(req.user + "----")
     const currentUser = req.user;
     postService.getDeleted(currentUser.sub)
     .then(post => post ? res.json(post) : res.sendStatus(404))
@@ -65,16 +63,9 @@ function _delete(req, res, next) {
         .then(() => res.json({}))
         .catch(err => next(err));
 }
-function likePost(req, res, next) {
+function toggleLike(req, res, next) {
     userService.getById(req.user.sub)
-    .then(curUser => postService.hitLike(req.params.id,curUser))
-    .then( post => post ? res.status(200).json({ message: 'Liked Post Succesfully' }):res.status(404).json({ message: 'Cannot Like Post' }) )
+        .then(curUser => postService.toggleLike(req.params.id, curUser))
+        .then( post => post ? res.status(200).json({ message:'Like Toggle Succesful'}):res.status(404).json({ message: 'Cannot Like or Unlike Post' }) )
         .catch(err => next(err));
-}
-
-function unlikePost(req, res, next) {
-    userService.getById(req.user.sub)
-    .then(curUser => postService.hitUnLike(req.params.id,curUser))
-    .then( post => post ? res.status(200).json({ message: 'Unliked Post Succesfully' }):res.status(404).json({ message: 'Cannot Unlike Post' }) )
-    .catch(err => next(err));
 }

@@ -12,8 +12,7 @@ module.exports = {
     getDeleted,
     create,
     delete: update,
-    hitLike,
-    hitUnlike
+    toggleLike
 };
 
 
@@ -27,9 +26,13 @@ async function getById(id) {
 
 async function getLatest(timestamp, _curUser){
     var d_timestamp = new Date(timestamp);
-    var latest_posts = await (post.find({$and:[{createdDate: {$gt: d_timestamp}}, {isDeleted: false}]}).sort('-createdDate').populate({path: 'likes.User',model:'User'}));
+    var latest_posts = await (post.find({$and:[{createdDate: {$gt: d_timestamp}}, {isDeleted: false}]})
+        .sort('-createdDate')
+        .populate('likes.User','id')
+        .populate('createdBy', 'firstName lastName'));
+
     for (const [ key, value ] of Object.entries(latest_posts)){
-        if (latest_posts[key].createdBy == _curUser){
+        if (latest_posts[key].createdBy.id == _curUser){
             latest_posts[key].isOwned = true;
         }
         if (latest_posts[key].likes.indexOf(_curUser)!= -1){
@@ -54,13 +57,15 @@ async function create(postBody,_curUserId) {
 }
 
 async function update(id,postParam) {
-    return await post.findOneAndUpdate({"_id": id },{ $set: postParam});
+    return await post.findByIdAndUpdate(id,{ $set: postParam});
 }
 
-async function hitLike(id,_user) {
-    return await post.findOneAndUpdate({"_id": id },{$inc: { "likeCount": 1},$addToSet: {likes: _user}});
-}
-
-async function hitUnlike(id,_user) {
-    return await post.findOneAndUpdate({"_id": id },{ $inc: { "likeCount": -1},$pull: {likes: _user}});
+async function toggleLike(id,_user) {
+    _post = await post.findById(id).populate({path:'likes.User',model:'User'});
+    if(_post.likes.indexOf(_user.id)==-1){
+        return await post.findByIdAndUpdate(id, {$addToSet: {"likes": _user}, $inc: { "likeCount": 1}});
+    }
+    else{
+        return await post.findByIdAndUpdate(id, {$pull: {"likes": _user._id}, $inc: { "likeCount": -1}});
+    }
 }

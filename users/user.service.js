@@ -1,4 +1,4 @@
-﻿const config = require('config.json');
+﻿const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../_helpers/db');
@@ -19,13 +19,16 @@ module.exports = {
 
 async function authenticate({ username, password }) {
     const _user = await user.findOne({ username });
+    var _loginCount = _user.loginCount;
+    user.findByIdAndUpdate(user.id,{$inc:{'loginCount':1}});
     if (_user && bcrypt.compareSync(password, _user.hash)) {
         const { hash, ...userWithoutHash } = _user.toObject();
         const token = jwt.sign({ sub: _user.id, role: _user.role }, config.secret);
         return {
             firstname: _user.firstName,
             lastname: _user.lastName,
-            token: token
+            token: token,
+            loginCount : _loginCount
         };
     }
 }
@@ -86,15 +89,15 @@ async function initiateMeet(meetParams){
     meetUser = await user.findOne({ username: meetParams.body.username });
     _meetSecret = meetParams.body.meetSecret.toUpperCase();
     if (meetUser.secret == _meetSecret && meetUser.secret != "" && curUser.sub != meetUser.id){
-        await user.findOneAndUpdate({"_id":meetUser},{$set: {"secret": ""}});
-        return await user.findOneAndUpdate({"_id":curUser.sub},{$addToSet: {"meets": meetUser}});
+        await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
+        return await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
     }
 }
 
 async function acceptMeet(meetParams){
     curUser = meetParams;
     _secret = randomizer('A0',6);
-    await user.findOneAndUpdate({"_id":curUser},{$set: {"secret": _secret}});
+    await user.findByIdAndUpdate(curUser,{$set: {"secret": _secret}});
     return _secret
 
 }

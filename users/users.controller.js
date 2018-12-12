@@ -28,7 +28,6 @@ function register(req, res, next) {
         .catch(err => next(err));
 }
 
-
 function initiateMeet(req, res, next) {
     userService.initiateMeet(req)
         .then(meet => meet ? res.status(200).json({message: "Meeting Succeeded"}) : res.status(401).json({ message: 'Username or password is incorrect' }))

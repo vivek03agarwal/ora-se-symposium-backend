@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
     posts: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     photos: [{type: String, required: false}],
     meets: [{ type:mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    achievementScore: {type: Number, default:0}
+    achievementScore: {type: Number, default:0},
+    loginCount: {type: Number, default:0}
 });
 
 userSchema.set('toJSON', { virtuals: true });
