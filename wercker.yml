@@ -26,10 +26,10 @@ docker-build:
   steps:
     - internal/docker-build:
         dockerfile: Dockerfile
-        image-name: hello-helm
+        image-name: oracle-se-symposium-backend
 
     - internal/docker-push: 
-        image-name: hello-helm
+        image-name: oracle-se-symposium-backend
         username: $DOCKER_USERNAME  
         password: $DOCKER_PASSWORD 
         repository: $DOCKER_USERNAME/$REPO_ADDRESS
