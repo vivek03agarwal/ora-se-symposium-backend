@@ -1,7 +1,7 @@
 FROM node:latest
 MAINTAINER Vamsi Ramakrishnan "vamsi.ramakrishnan@oracle.com"
 
-mkdir se-symposium-backend
+RUN mkdir se-symposium-backend
 WORKDIR se-symposium-backend
 
 
