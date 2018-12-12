@@ -61,4 +61,4 @@ typings/
 .next
 
 #Node Modules
-./node-modules
+./node_modules
