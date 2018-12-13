@@ -35,3 +35,12 @@ docker-build:
         password: $DOCKER_PASSWORD 
         repository: $DOCKER_USERNAME/$REPO_ADDRESS
         tag: ${WERCKER_GIT_BRANCH}-${WERCKER_GIT_COMMIT} , latest
+
+kubernetes-deploy:
+  steps: 
+    - kubectl:
+        server: $KUBE_ENDPOINT
+        token: $KUBE_USER_TOKEN
+        cwd: $WERCKER_ROOT
+        insecure-skip-tls-verify: true
+        command: apply -f .
