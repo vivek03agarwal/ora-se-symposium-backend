@@ -38,6 +38,7 @@ docker-build:
 
 kubernetes-deploy:
   steps: 
+    - shellcheck
     - kubectl:
         server: $KUBE_ENDPOINT
         token: $KUBE_USER_TOKEN
