@@ -46,7 +46,7 @@ kubernetes-deploy:
     - script:
         name: echo nodejs information
         code: | 
-          cat ./backend-api-deployment.yaml.template
+          cat ./backend-api-deployment.yaml
           
     - kubectl:
         server: $KUBE_ENDPOINT
