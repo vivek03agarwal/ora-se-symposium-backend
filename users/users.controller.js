@@ -30,13 +30,13 @@ function register(req, res, next) {
 
 function initiateMeet(req, res, next) {
     userService.initiateMeet(req)
-        .then(meet => meet ? res.status(200).json({message: "Meeting Succeeded"}) : res.status(401).json({ message: 'Username or password is incorrect' }))
+        .then(meet => meet ? res.status(200).json({message: "Meeting Succeeded"}) : res.status(401).json({ message: 'OTP Doesnt match /you cannot meet yourself' }))
         .catch(err => next(err));
 }
 
 function acceptMeet(req, res, next) {
     userService.acceptMeet(req.user.sub)
-        .then(secret => secret ? res.status(200).json({OTP: secret}) : res.status(401).json({ message: 'OTP Doesnt match and you cannot meet yourself, unless you insist' }))
+        .then(secret => secret ? res.status(200).json({OTP: secret}) : res.status(401).json({ message: 'Could not Generate OTP Try again' }))
         .catch(err => next(err));
 }
 

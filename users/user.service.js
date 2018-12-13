@@ -46,8 +46,7 @@ async function create(userParam) {
     if (await user.findOne({ username: userParam.username })) {
         throw 'username "' + userParam.username + '" is already taken';
     }
-
-    userParam.username = userParam.username.toUpperCase();
+    
     const _user = new user(userParam);
 
     // hash password
@@ -87,8 +86,11 @@ async function pushPosts(id,_post){
 
 async function initiateMeet(meetParams){
     curUser = meetParams.user;
-    meetUser = await user.findOne({secret: meetParams.body.OTP.toUpperCase() });
-    if (meetUser.id != curUser){
+    var meetUser = await user.findOne({secret: meetParams.body.OTP.toUpperCase()});
+    if (!meetUser){
+        return null
+    }
+    if (meetUser.id != curUser.sub){
         await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
         return await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
     }
