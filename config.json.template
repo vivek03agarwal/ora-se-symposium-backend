@@ -1,1 +1,4 @@
-$APPCONFIG
+﻿{
+    "connectionString": ${MONGO_URI},
+    "secret": ${JWT}
+}
