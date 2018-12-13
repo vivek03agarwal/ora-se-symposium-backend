@@ -1,4 +1,7 @@
 ﻿require('rootpath');
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+var compression = require('compression');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -7,9 +10,12 @@ const jwt = require('./_helpers/jwt');
 const errorHandler = require('./_helpers/error-handler');
 const config = require('./config.json');
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(compression());
+
 
 // use JWT auth to secure the api
 app.use(jwt());

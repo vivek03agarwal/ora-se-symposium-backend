@@ -6,12 +6,12 @@ const Role = require('../_helpers/role');
 // routes
 userRouter.post('/authenticate', authenticate);
 userRouter.post('/register', register);
+userRouter.post('/resetPassWord', update);
 userRouter.post('/initiateMeet',initiateMeet);
 userRouter.get('/acceptMeet',acceptMeet);
 userRouter.get('/', getAll);
 userRouter.get('/current', getCurrent);
 userRouter.get('/:id', getById);
-userRouter.put('/:id', update);
 userRouter.delete('/:id', _delete);
 
 module.exports = userRouter;
@@ -73,14 +73,8 @@ function getById(req, res, next) {
 
 
 function update(req, res, next) {
-    const currentUser = req.user;
-    const id = req.params.id;
-    console.info(currentUser.sub + "  " + id)
-    if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-    userService.update(req.params.id, req.body)
-        .then(() => res.json({}))
+    userService.update(req.user.sub, req.body)
+        .then(() => res.json({message:"Update Successful"}))
         .catch(err => next(err));
 }
 
