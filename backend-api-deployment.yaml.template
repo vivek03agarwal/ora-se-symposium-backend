@@ -15,13 +15,11 @@ spec:
         tier: backend
     spec:
       containers:
-        image: vamsiramakrishnan/ora-se-symposium-backend:${WERCKER_GIT_BRANCH}-${WERCKER_GIT_COMMIT}
-        name: ora-se-symposium-backend
-        ports:
-        - containerPort: 4000
-          protocol: TCP
-
-
+        - name: ora-se-symposium-backend
+          image: vamsiramakrishnan/ora-se-symposium-backend:${WERCKER_GIT_BRANCH}-${WERCKER_GIT_COMMIT}
+          ports:
+          - containerPort: 4000
+            protocol: TCP
 ---
 
 
