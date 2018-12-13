@@ -1,6 +1,6 @@
 const config = require('../config.json');
 var mongoose = require('mongoose');
-mongoose.connect(config.connectionString, callback);
+mongoose.connect(config.connectionString);
 mongoose.Promise = global.Promise;
 
 module.exports = {
