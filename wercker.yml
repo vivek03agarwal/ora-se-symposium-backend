@@ -41,9 +41,13 @@ docker-build:
 kubernetes-deploy:
   steps: 
     - bash-template:
-        cwd: $WERCKER_ROOT
-    - code: | 
-         cat ./backend-api-deployment.yaml.template
+        cwd: $WERCKER_ROOT/.
+        
+    - script:
+        name: echo nodejs information
+        code: | 
+          cat ./backend-api-deployment.yaml.template
+          
     - kubectl:
         server: $KUBE_ENDPOINT
         token: $KUBE_USER_TOKEN
