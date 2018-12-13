@@ -7,8 +7,8 @@ const Role = require('../_helpers/role');
 userRouter.post('/authenticate', authenticate);
 userRouter.post('/register', register);
 userRouter.post('/resetPassWord', update);
-userRouter.post('/initiateMeet',initiateMeet);
-userRouter.get('/acceptMeet',acceptMeet);
+userRouter.post('/validateOTP',initiateMeet);
+userRouter.get('/generateOTP',acceptMeet);
 userRouter.get('/', getAll);
 userRouter.get('/current', getCurrent);
 userRouter.get('/:id', getById);
@@ -36,7 +36,7 @@ function initiateMeet(req, res, next) {
 
 function acceptMeet(req, res, next) {
     userService.acceptMeet(req.user.sub)
-        .then(secret => secret ? res.status(200).json({meetSecret: secret}) : res.status(401).json({ message: 'Could not Generate Secret' }))
+        .then(secret => secret ? res.status(200).json({OTP: secret}) : res.status(401).json({ message: 'Could not Generate Secret' }))
         .catch(err => next(err));
 }
 
