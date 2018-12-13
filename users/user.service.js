@@ -88,8 +88,13 @@ async function pushPosts(id,_post){
 async function initiateMeet(meetParams){
     curUser = meetParams.user;
     meetUser = await user.findOne({secret: meetParams.body.OTP.toUpperCase() });
-    await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
-    return await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
+    if (meetUser.id != curUser){
+        await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
+        return await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
+    }
+    else{
+        return null
+    }
 
 }
 

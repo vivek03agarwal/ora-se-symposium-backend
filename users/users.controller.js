@@ -36,7 +36,7 @@ function initiateMeet(req, res, next) {
 
 function acceptMeet(req, res, next) {
     userService.acceptMeet(req.user.sub)
-        .then(secret => secret ? res.status(200).json({OTP: secret}) : res.status(401).json({ message: 'Could not Generate Secret' }))
+        .then(secret => secret ? res.status(200).json({OTP: secret}) : res.status(401).json({ message: 'OTP Doesnt match and you cannot meet yourself, unless you insist' }))
         .catch(err => next(err));
 }
 
@@ -74,7 +74,7 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     userService.update(req.user.sub, req.body)
-        .then(post => post ? res.json({message:"Update Successful"}):res.json({message:"Unable to Update"}))
+        .then(post => post ? res.json({message:"Update Successful"}) : res.json({message:"Unable to Update"}))
         .catch(err => next(err));
 }
 
