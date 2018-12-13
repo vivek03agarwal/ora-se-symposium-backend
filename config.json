@@ -1,4 +1,4 @@
-﻿{
-    "connectionString": "mongodb://mongodb-test-mongodb-replicaset-0.mongodb-test-mongodb-replicaset/se-symposium-backend",
+{
+    "connectionString": "mongodb://mongodb-testmongodb-replicaset-0.mongodb-test-mongodb-replicaset,mongodb-testmongodb-replicaset-1.mongodb-test-mongodb-replicaset,mongodb-testmongodb-replicaset-2.mongodb-test-mongodb-replicaset/se-symposium-backend",
     "secret": "OrAcLe@Se_SyMpoSiUm_2018_JaIpUr!"
 }
