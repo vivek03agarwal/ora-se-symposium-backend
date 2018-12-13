@@ -13,6 +13,7 @@ build:
   # Read more about steps on our dev center:
   # https://devcenter.wercker.com/development/steps/
   steps:
+    - shellcheck
     # A step that executes `npm install` command
     - npm-install
     # A custom script step, name value is used in the UI
