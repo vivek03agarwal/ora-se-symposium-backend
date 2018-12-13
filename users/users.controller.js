@@ -74,7 +74,7 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     userService.update(req.user.sub, req.body)
-        .then(() => res.json({message:"Update Successful"}))
+        .then(post => post ? res.json({message:"Update Successful"}):res.json({message:"Unable to Update"}))
         .catch(err => next(err));
 }
 
