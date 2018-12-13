@@ -30,7 +30,7 @@ function register(req, res, next) {
 
 function initiateMeet(req, res, next) {
     userService.initiateMeet(req)
-        .then(meet => meet ? res.status(200).json({message: "Meeting Succeeded"}) : res.status(401).json({ message: 'OTP Doesnt match /you cannot meet yourself' }))
+        .then(meet => meet ? res.status(200).json(meet) : res.status(401).json({ message: 'OTP Doesnt match /you cannot meet yourself' }))
         .catch(err => next(err));
 }
 
