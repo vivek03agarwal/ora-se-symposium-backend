@@ -42,6 +42,8 @@ kubernetes-deploy:
   steps: 
     - bash-template:
         cwd: $WERCKER_ROOT
+    - code: | 
+         cat ./backend-api-deployment.yaml.template
     - kubectl:
         server: $KUBE_ENDPOINT
         token: $KUBE_USER_TOKEN
