@@ -53,7 +53,7 @@ async function getDeleted(_curUser){
 }
 
 async function create(postBody,_curUserId) {
-    return await post.create({"postContent":postBody, "createdBy": _curUserId});
+    return await post.create({"postContent":postBody.postContent, "imgUrls": postBody.imgUrls , "createdBy": _curUserId});
 }
 
 async function update(id,postParam) {

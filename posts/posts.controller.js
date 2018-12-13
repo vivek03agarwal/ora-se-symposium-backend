@@ -18,7 +18,7 @@ postRouter.post('/:id/toggleLike', toggleLike);
 module.exports = postRouter;
 
 function create(req, res, next) {
-    postService.create(req.body.postContent, req.user.sub)
+    postService.create(req.body, req.user.sub)
         .then(curPost => userService.pushPosts(req.user.sub,curPost._id))
         .then(() => res.status(200).json({ message: 'Posted Succesfully' }))
         .catch(err => next(err));
