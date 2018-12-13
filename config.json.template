@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": ${MONGO_URI},
-    "secret": ${JWT}
+    "connectionString": $MONGO_URI,
+    "secret": $JWT
 }
