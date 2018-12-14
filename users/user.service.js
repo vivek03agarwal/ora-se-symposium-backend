@@ -25,8 +25,8 @@ async function authenticate({ username, password }) {
         const { hash, ...userWithoutHash } = _user.toObject();
         const token = jwt.sign({ sub: _user.id, role: _user.role }, config.secret);
         return {
-            firstname: _user.firstName,
-            lastname: _user.lastName,
+            firstName: _user.firstName,
+            lastName: _user.lastName,
             token: token,
             loginCount : _loginCount
         };
@@ -43,17 +43,14 @@ async function getById(id) {
 
 async function create(userParam) {
     // validate
-    if (await user.findOne({ username: userParam.username })) {
+    if (await user.findOne({ username: userParam.username.toLowerCase() })) {
         throw 'username "' + userParam.username + '" is already taken';
     }
-    
     const _user = new user(userParam);
-
     // hash password
     if (userParam.password) {
         _user.hash = bcrypt.hashSync(userParam.password, 10);
     }
-
     // save user
     await _user.save();
     return _user
