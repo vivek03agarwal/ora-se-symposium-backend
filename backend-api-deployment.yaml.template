@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ora-se-symposium-backend
-          image: vamsiramakrishnan/ora-se-symposium-backend:latest
+          image: vamsiramakrishnan/ora-se-symposium-backend:${WERCKER_GIT_BRANCH}-${WERCKER_GIT_COMMIT} 
           ports:
           - containerPort: 4000
             protocol: TCP
