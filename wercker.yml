@@ -53,4 +53,4 @@ kubernetes-deploy:
         token: $KUBE_USER_TOKEN
         cwd: $WERCKER_ROOT
         insecure-skip-tls-verify: true
-        command: apply -f .
+        command: apply -f backend-api-deployment.yaml
