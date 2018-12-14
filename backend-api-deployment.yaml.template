@@ -38,3 +38,4 @@ spec:
     app: se-symposium-backend
     tier: backend
   sessionAffinity: None
+  type: LoadBalancer
