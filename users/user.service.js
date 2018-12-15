@@ -19,7 +19,7 @@ module.exports = {
 
 async function authenticate({ username, password }) {
     var _username = username.toLowerCase();
-    const _user = await user.findOne({ _username });
+    const _user = await user.findOne({username: _username});
     var _loginCount = _user.loginCount;
     await user.findByIdAndUpdate(_user.id,{$inc:{'loginCount':1}});
     if (_user && bcrypt.compareSync(password, _user.hash)) {
