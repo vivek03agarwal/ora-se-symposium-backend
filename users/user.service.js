@@ -92,9 +92,9 @@ async function initiateMeet(meetParams){
         await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
         await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
         return {
-            firstname: meetUser.firstName,
-            lastname: meetUser.lastName,
-            designation: meetUser.designation,
+            firstName: meetUser.firstName,
+            lastName: meetUser.lastName,
+            designation: meetUser.department,
             location : meetUser.location
         };
     }
