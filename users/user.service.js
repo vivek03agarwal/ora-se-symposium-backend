@@ -73,7 +73,7 @@ async function update(id, userParam) {
 
     // copy userParam properties to user
     Object.assign(_user, userParam);
-    await _user.save();
+    return await _user.save();
 }
 
 async function pushPosts(id,_post){
@@ -92,9 +92,9 @@ async function initiateMeet(meetParams){
         await user.findByIdAndUpdate(meetUser,{$set: {"secret": ""}});
         await user.findByIdAndUpdate(curUser.sub,{$addToSet: {"meets": meetUser}});
         return {
-            firstName: meetUser.firstName,
-            lastName: meetUser.lastName,
-            designation: meetUser.department,
+            firstname: meetUser.firstName,
+            lastname: meetUser.lastName,
+            designation: meetUser.designation,
             location : meetUser.location
         };
     }
