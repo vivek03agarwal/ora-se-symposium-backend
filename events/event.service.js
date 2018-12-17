@@ -17,13 +17,8 @@ async function getAll() {
 }
 
 async function getByUser(_userid) {
-    var _event = await event.find();
-    for (const [ key, value ] of Object.entries(_event)){
-        if (_event[key].users.indexOf(_userid)!=-1){
-            _event[key].isRegistered = true;
-        }
-    }
-    return _event
+    var _eventArray = [];
+    return await event.find({users:_userid});
 }
 
 
