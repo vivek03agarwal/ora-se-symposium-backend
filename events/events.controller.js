@@ -9,6 +9,7 @@ eventRouter.post('/create', create);
 eventRouter.get('/', getAll);
 eventRouter.get('/feed/:timestamp', getLatest);
 eventRouter.get('/getEvent', getByUser);
+eventRouter.get('/getUsersPerEvent', getUsersPerEvent);
 eventRouter.post('/toggleRegistration', toggleRegistration);
 
 
@@ -36,7 +37,13 @@ function getLatest(req, res, next) {
 
 function getByUser(req, res, next) {
     eventService.getByUser(req.user.sub)
-        .then(post => post ? res.json(post) : res.sendStatus(404))
+        .then(event => event ? res.json(event) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getUsersPerEvent(req, res, next) {
+    eventService.getUsersPerEvent(req.body.eventName)
+        .then(users => users ? res.json(users) : res.sendStatus(404))
         .catch(err => next(err));
 }
 

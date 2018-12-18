@@ -8,7 +8,8 @@ module.exports = {
     getAll,
     getByUser,
     create,
-    toggleRegistration
+    toggleRegistration,
+    getUsersPerEvent
 };
 
 
@@ -17,8 +18,11 @@ async function getAll() {
 }
 
 async function getByUser(_userid) {
-    var _eventArray = [];
     return await event.find({users:_userid});
+}
+
+async function getUsersPerEvent(_eventName) {
+   return await event.find({eventName:_eventName}).lean().populate('users', 'firstName lastName');
 }
 
 
