@@ -42,10 +42,6 @@ function acceptMeet(req, res, next) {
 
 function getAll(req, res, next) {
     const currentUser = req.user;
-    // only allow admins to access other user records
-    if (currentUser.role !== Role.Admin) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
     userService.getAll()
         .then(users => res.json(users))
         .catch(err => next(err));

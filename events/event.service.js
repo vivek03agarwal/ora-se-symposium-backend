@@ -22,7 +22,7 @@ async function getByUser(_userid) {
 }
 
 async function getUsersPerEvent(_eventName) {
-   return await event.find({eventName:_eventName}).lean().populate('users', 'firstName lastName');
+   return await event.find({eventName:_eventName}).lean().populate('users', 'firstName lastName mobileNumber');
 }
 
 

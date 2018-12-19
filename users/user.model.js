@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     photos: [{type: String, required: false}],
     meets: [{ type:mongoose.Schema.Types.ObjectId, ref: 'User'}],
     achievementScore: {type: Number, default:0},
-    loginCount: {type: Number, default:0}
+    loginCount: {type: Number, default:0},
+    mobileNumber: { type: String, default:'9845211200'}
 });
 
 userSchema.set('toJSON', { virtuals: true });

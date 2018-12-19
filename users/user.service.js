@@ -35,7 +35,7 @@ async function authenticate({ username, password }) {
 }
 
 async function getAll() {
-    return await user.find().select('-hash');
+    return await user.find().select('-hash').populate(users);
 }
 
 async function getById(id) {
