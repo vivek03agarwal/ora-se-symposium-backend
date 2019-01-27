@@ -11,5 +11,7 @@
 
 ```!! Note PVCs are automatically spawned based on the K8s-Volume Provisioner ```
 
-``` helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-``` helm install --name my-release stable/mongodb-replicaset
+``` helm repo add stable https://kubernetes-charts.storage.googleapis.com/ ```
+
+``` helm install --name my-release stable/mongodb-replicaset ```
+ 
