@@ -79,7 +79,8 @@ kubernetes-deploy:
         name: echo deployment file
         code: | 
           cat ./backend-api-deployment.yaml
-          
+
+# Comment this step if you have not created a secret manuallly / You are running the Wercker build for the first time 
     - kubectl:
         server: $KUBE_ENDPOINT
         token: $KUBE_USER_TOKEN
